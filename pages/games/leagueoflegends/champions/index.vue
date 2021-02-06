@@ -2,36 +2,20 @@
   <div>
     <div class="container mx-auto">
       <h1>Champions</h1>
-      <ul v-for="champion in champions" :key="champion.id">
-        <li>
-          <NuxtLink
-            class="mb-4 flex"
-            :to="'/games/leagueoflegends/championDetail/' + champion.id"
-          >
-            <img
-              class="mr-4 w-10"
-              :src="
-                'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/champion/' +
-                champion.id +
-                '.png'
-              "
-            />
-            <span
-              >{{ champion.name }} -- {{ champion.title }} //
-              {{ champion.tags }}</span
-            >
-          </NuxtLink>
-        </li>
-      </ul>
+      <championListTable :champions="championList"></championListTable>
     </div>
   </div>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import championListTable from '@/components/leagueoflegends/champion/championListTable'
 export default {
+  components: {
+    championListTable,
+  },
   computed: {
     ...mapGetters({
-      champions: 'game/leagueoflegends/champions/getChampionList',
+      championList: 'game/leagueoflegends/champions/getChampionList',
     }),
   },
   created() {
