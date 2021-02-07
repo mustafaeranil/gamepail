@@ -7,7 +7,6 @@ export default {
     for (const value of Object.entries(championData.data)) {
       championSubData = value
     }
-    console.log(championSubData[1])
     commit('setChampionData', championSubData[1])
   },
 }
