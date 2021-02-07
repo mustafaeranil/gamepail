@@ -40,7 +40,9 @@ export default {
   axios: {
     baseURL: 'http://ddragon.leagueoflegends.com/cdn/11.3.1',
   },
-
+  eslint: {
+    cache: false,
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
   tailwindcss: {
