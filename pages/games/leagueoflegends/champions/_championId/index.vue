@@ -11,13 +11,14 @@
           "
         />
         <div class="absolute bottom-0 left-0 w-full">
-          <div class="container mx-auto">
-            <h1 class="text-white text5rem text-9xl font-black">
-              {{ championData.name }}
-            </h1>
-            <h2 class="text-white text-2xl">{{ championData.title }}</h2>
+          <div class="bg-gradient-to-b from-transparent to-black h-48">
+            <div class="container mx-auto">
+              <h1 class="text-white text5rem text-9xl font-black">
+                {{ championData.name }}
+              </h1>
+              <h2 class="text-white text-2xl">{{ championData.title }}</h2>
+            </div>
           </div>
-          <div class="bg-gradient-to-b from-transparent to-black h-16"></div>
         </div>
       </div>
       <div class="">
@@ -67,15 +68,7 @@
               <div>
                 <div class="float-left w-full">
                   <div class="float-left mr-2">
-                    <button
-                      @click="
-                        setActiveSpell(
-                          championData.passive.name,
-                          championData.passive.description,
-                          0
-                        )
-                      "
-                    >
+                    <button @click="setActiveSpell(0)">
                       <img
                         :src="
                           'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/passive/' +
@@ -89,15 +82,7 @@
                     :key="spell.index"
                     class="float-left mr-2"
                   >
-                    <button
-                      @click="
-                        setActiveSpell(
-                          spell.name,
-                          spell.description,
-                          spellKey + 1
-                        )
-                      "
-                    >
+                    <button @click="setActiveSpell(spellKey + 1)">
                       <img
                         :src="
                           'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/spell/' +
@@ -110,30 +95,25 @@
                 </div>
                 <div>
                   <div class="text-primary font-black italic">
-                    {{ activeSpellTitle || championData.passive.name }}
+                    {{ selectSpell.name }}
                   </div>
                   <div class="text-white">
-                    {{ activeSpellDesc || championData.passive.description }}
+                    {{ selectSpell.description }}
                   </div>
                 </div>
               </div>
               <div>
-                <video></video>
-                <video width="400" autoplay>
-                  <source
-                    :src="
-                      'https://blitz-cdn-videos.blitz.gg/tooltip_videos/' +
-                      championData.name +
-                      '/' +
-                      spellStates[activeSpellState] +
-                      '.webm'
-                    "
-                    type="video/webm"
-                  />
-                  Your browser does not support HTML video.
-                </video>
+                <video width="450" controls :src="selectSpell.video"></video>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="relative">
+          <div
+            class="z-10 bg-gradient-to-t absolute top-0 w-full left-0 from-transparent to-black h-8"
+          ></div>
+          <div>
+            <lolcarousel :slides="carouselSlides"></lolcarousel>
           </div>
         </div>
       </div>
@@ -142,7 +122,11 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import lolcarousel from '@/components/leagueoflegends/carousel'
 export default {
+  components: {
+    lolcarousel,
+  },
   async asyncData({ params, error, store }) {
     try {
       await store.dispatch(
@@ -157,24 +141,46 @@ export default {
     return {
       activeSpellState: 0,
       spellStates: ['P', 'Q', 'W', 'E', 'R'],
-      activeSpellTitle: '',
-      activeSpellDesc: '',
       championId: this.$route.params.championId,
     }
   },
+
   computed: {
     ...mapGetters({
       championData: 'game/leagueoflegends/championDetail/getChampionData',
     }),
+    carouselSlides() {
+      const carouselObj = this.championData.skins
+      for (const slide of carouselObj) {
+        slide.imageUrl =
+          'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/' +
+          this.championData.name +
+          '_' +
+          slide.num +
+          '.jpg'
+      }
+      return carouselObj
+    },
+    selectSpell() {
+      const video =
+        'https://blitz-cdn-videos.blitz.gg/tooltip_videos/' +
+        this.championData.name +
+        '/' +
+        this.spellStates[this.activeSpellState] +
+        '.webm'
+      if (this.activeSpellState === 0) {
+        return { ...this.championData.passive, video }
+      } else {
+        return { ...this.championData.spells[this.activeSpellState - 1], video }
+      }
+    },
   },
 
   methods: {
     ...mapActions({
       getChampionData: 'game/leagueoflegends/championDetail/getChampionData',
     }),
-    setActiveSpell(spellTitle, spellDesc, spellKey) {
-      this.activeSpellTitle = spellTitle
-      this.activeSpellDesc = spellDesc
+    setActiveSpell(spellKey) {
       this.activeSpellState = spellKey
     },
   },
