@@ -1,21 +1,23 @@
 <template>
   <div>
-    <li>
-      <NuxtLink
-        class="mb-4 flex"
-        :to="'/games/leagueoflegends/champions/' + championData.id"
+    <NuxtLink
+      class="block relative rounded-b-xl overflow-hidden"
+      :to="$route.path + '/' + championData.id"
+    >
+      <img
+        class="w-full"
+        :src="
+          'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/' +
+          championData.id +
+          '_0.jpg'
+        "
+      />
+      <div
+        class="absolute bg-primary text-2xl text-white font-bold py-2 bottom-0 left-0 w-full text-center"
       >
-        <img
-          class="mr-4 w-10"
-          :src="
-            'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/champion/' +
-            championData.id +
-            '.png'
-          "
-        />
-        <span>{{ championData.name }} {{ championData.tags }}</span>
-      </NuxtLink>
-    </li>
+        {{ championData.name }}
+      </div>
+    </NuxtLink>
   </div>
 </template>
 

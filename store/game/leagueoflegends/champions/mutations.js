@@ -1,5 +1,9 @@
 export default {
-  setChampionList(state, champions) {
-    state.champions = champions
+  setChampionList(state, championList) {
+    state.champions = championList
+    state.filteredChampions = championList
+  },
+  setFilteredChampionList(state, championList) {
+    state.filteredChampions = championList
   },
 }

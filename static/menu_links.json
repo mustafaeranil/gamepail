@@ -1,0 +1,58 @@
+{
+  "games": {
+    "leagueoflegends": {
+      "id": "lol",
+      "name": "League Of Legends",
+      "link": "/games/leagueoflegends/champions",
+      "order": "1",
+      "imgName": "lol_icon.png"
+    },
+    "overwatch": {
+      "id": "overwatch",
+      "name": "OVERWATCH",
+      "link": "/games/leagueoflegends/champions",
+      "order": "1",
+      "imgName": "lol_icon.png"
+    },
+    "pubg": {
+      "id": "pubg",
+      "name": "PUBG",
+      "link": "/games/leagueoflegends/champions",
+      "order": "1",
+      "imgName": "lol_icon.png"
+    },
+    "fortnite": {
+      "id": "fornite",
+      "name": "FORNITE",
+      "link": "/games/leagueoflegends/champions",
+      "order": "1",
+      "imgName": "lol_icon.png"
+    }
+  },
+  "pageLinks": {
+    "champions": {
+      "id": "champions",
+      "name": "CHAMPIONS",
+      "link": "/games/leagueoflegends/champions",
+      "order": "1"
+    },
+    "community": {
+      "id": "community",
+      "name": "COMMUNITY",
+      "link": "https://na.leagueoflegends.com/en-us/news/community/join-the-community/",
+      "order": "2"
+    },
+    "patchnotes": {
+      "id": "patchnotes",
+      "name": "PATCH NOTES",
+      "link": "https://na.leagueoflegends.com/en-us/news/tags/patch-notes",
+      "order": "3"
+    },
+    "esports": {
+      "id": "esports",
+      "name": "ESPORTS",
+      "link": "https://www.lolesports.com/en_US/",
+      "order": "4"
+    }
+  }
+}
