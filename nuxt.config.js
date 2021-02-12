@@ -37,9 +37,7 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    baseURL: 'http://ddragon.leagueoflegends.com/cdn/11.3.1',
-  },
+  axios: {},
   eslint: {
     cache: false,
   },
